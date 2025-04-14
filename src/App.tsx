@@ -1,7 +1,9 @@
+```tsx
 import React, { useState } from 'react';
 
 const App = () => {
   const [count, setCount] = useState<number>(0);
+  const [shouldFail, setShouldFail] = useState<boolean>(false);
 
   const handleIncrement = () => {
     setCount(prevCount => prevCount + 1);
@@ -14,6 +16,14 @@ const App = () => {
   const handleReset = () => {
     setCount(0);
   };
+
+  const handleFail = () => {
+    setShouldFail(true);
+  };
+
+  if (shouldFail) {
+    throw new Error('Intentional app failure');
+  }
 
   return (
     <div style={{ 
@@ -63,9 +73,22 @@ const App = () => {
         >
           Reset
         </button>
+        <button 
+          onClick={handleFail}
+          style={{ 
+            margin: '0 10px', 
+            padding: '10px 20px',
+            fontSize: '16px',
+            backgroundColor: 'red',
+            color: 'white'
+          }}
+        >
+          Fail
+        </button>
       </div>
     </div>
   );
 };
 
 export default App;
+```
